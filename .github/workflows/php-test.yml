@@ -1,0 +1,20 @@
+name: api_analysis
+on: [pull_request]
+
+jobs:
+  # 構文チェック
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: rito328/composite-run-steps-action-laravel-setup@v1
+    # 1. reviewdog の setup action を追加
+    - uses: reviewdog/action-setup@v1
+      with:
+        reviewdog_version: latest
+    - name: lint
+      env:
+        # 2. reviewdog が コメントを書き込めるように token をセットする
+        REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # 3. 構文チェックの結果を reviewdog へ渡す
+      run: ./vendor/bin/phpcs --report=emacs --standard=phpcs.xml ./ | reviewdog -reporter=github-pr-review -efm='%f:%l:%c:%m'
