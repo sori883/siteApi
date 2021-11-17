@@ -17,5 +17,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/login', [CookieAuthenticationController::class, 'login']);
-Route::post('/logout', [CookieAuthenticationController::class, 'logout']);
