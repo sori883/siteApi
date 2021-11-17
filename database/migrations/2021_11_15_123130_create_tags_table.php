@@ -16,7 +16,6 @@ class CreateTagsTable extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name',20)->unique()->default('')->comment('タグ名');
-            $table->string('slag',20)->unique()->default('')->comment('タグ固有のURL');
             $table->timestamps();
             $table->softDeletes();
         });
