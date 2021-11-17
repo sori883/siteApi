@@ -24,7 +24,7 @@ class CreateArticlesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('SET NULL');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('image_id')->references('id')->on('images')->onUpdate('SET NULL');
         });
     }
