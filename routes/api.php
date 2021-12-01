@@ -2,6 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\VerifyController;
+use App\Http\Controllers\Auth\ForgotController;
+use App\Http\Controllers\Auth\PasswordResetController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('user')->name('user.')->group(function () {
-    Route::post('register', 'Auth\CookieAuthenticationController@register')->name('register');
-    Route::post('login', 'Auth\CookieAuthenticationController@login')->name('login');
-    Route::post('logout', 'Auth\CookieAuthenticationController@logout')->name('logout');
-});
-
+Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/verify', [VerifyController::class, 'verify']);
+Route::post('/forgot', [ForgotController::class, 'forgot']);
+Route::post('/reset', [PasswordResetController::class, 'reset']);
