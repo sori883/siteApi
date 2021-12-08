@@ -19,8 +19,8 @@ use App\Http\Controllers\Auth\PasswordResetController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/me', MeController::class);
 });
 
 Route::post('/register', [RegisterController::class, 'register']);
