@@ -36,7 +36,7 @@ class VerificationMail extends Mailable
         $subject = 'Verification mail';
 
         // VueへのコールバックURLをルート名で取得
-        $baseUrl = config('app.url');
+        $baseUrl = config('app.front_url');
         $token = $this->token;
         $url = "{$baseUrl}/{$this->verifyRoute}/{$token}";
 

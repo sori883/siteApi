@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\RegisterUser;
 use App\Http\Requests\RegisterRequest;
 use App\Traits\Auth\AuthenticationTrait;
+use App\Mail\VerificationMail;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
