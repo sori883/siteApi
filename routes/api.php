@@ -3,11 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\MeController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\VerifyController;
 use App\Http\Controllers\Auth\ForgotController;
 use App\Http\Controllers\Auth\PasswordResetController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +21,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/me', MeController::class);
 });
 
-Route::post('/register', [RegisterController::class, 'register']);
-Route::post('/verify', [VerifyController::class, 'verify']);
 Route::post('/forgot', [ForgotController::class, 'forgot']);
 Route::post('/reset', [PasswordResetController::class, 'reset']);

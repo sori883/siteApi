@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\VerifyRequest;
 use App\Traits\Auth\AuthenticationTrait;
+use App\Models\RegisterUser;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 
 class VerifyController extends Controller
 {
@@ -17,7 +21,7 @@ class VerifyController extends Controller
      * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function verify(Request $request)
+    public function verify(VerifyRequest $request)
     {
         $this->alreadyLogin();
 
@@ -29,12 +33,12 @@ class VerifyController extends Controller
 
         $user = $this->createUser($registerUser->toArray());
 
-        event(new Registered($user));
+        auth()->loginUsingId($user->id, $remember = true);
 
-        auth()->loginUsingId($user->id, true);
-
-        return $this->responseSuccess('Logged in.', [
-            'user' => $request->user()
+        return new JsonResponse([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
         ]);
     }
 
@@ -49,7 +53,7 @@ class VerifyController extends Controller
         $registerUser = RegisterUser::where('token', $token)->first();
 
         if ($registerUser) {
-            RegisterUser::destroy($registerUser->email);
+            // RegisterUser::destroy($registerUser->email);
         }
 
         return $registerUser;

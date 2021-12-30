@@ -23,12 +23,10 @@ class PasswordResetController extends Controller
      */
     public function reset(ResetRequest $request)
     {
-        $this->alreadyLogin();
-
         $reset = PasswordReset::where('token', $request->token)->first();
 
         $user = User::where('email', $reset->email)->first();
-        $user->password = passwordHash($request->password);
+        $user->password = $this->passwordHash($request->password);
         $user->save();
 
         return $this->responseSuccess('password reset.');
