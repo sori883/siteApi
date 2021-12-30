@@ -9,11 +9,11 @@ use Illuminate\Queue\SerializesModels;
 
 class PasswordResetMail extends Mailable
 {
-    use Queueableuse;
+    use Queueable;
     use SerializesModels;
 
     protected $token;
-    protected $resetRoute = 'reset';
+    protected $resetRoute = 'account/reset';
 
     /**
      * Create a new message instance.
@@ -34,16 +34,22 @@ class PasswordResetMail extends Mailable
     public function build()
     {
         // 件名
-        $subject = __('reset password mail');
+        $subject = 'reset password mail';
 
         // VueへのコールバックURLをルート名で取得
-        $baseUrl = config('app.url');
+        $baseUrl = config('app.front_url');
         $token = $this->token;
         $url = "{$baseUrl}/{$this->resetRoute}/{$token}";
 
-        return $this->subject($subject)
+        // 送信元のアドレス
+        // .envの「MAIL_FROM_ADDRESS」に設定したアドレスを取得
+        $from = config('mail.from.address');
+
+        return $this
+            ->from($from)
+            ->subject($subject)
             // 送信メールのビュー
-            ->view('mails.reset_password_mail')
+            ->view('mails.forgot_mail')
             // ビューで使う変数を渡す
             ->with('url', $url);
     }

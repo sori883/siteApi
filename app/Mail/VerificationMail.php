@@ -13,7 +13,7 @@ class VerificationMail extends Mailable
     use SerializesModels;
 
     protected $token;
-    protected $verifyRoute = 'verify';
+    protected $verifyRoute = 'account/verify';
 
     /**
      * Create a new message instance.
