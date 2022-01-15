@@ -24,6 +24,6 @@ class Image extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 }

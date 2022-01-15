@@ -53,11 +53,11 @@ class User extends Authenticatable
 
     public function articles(): HasMany
     {
-        return $this->hasMany('App\Models\Article');
+        return $this->hasMany(Article::class);
     }
 
     public function images(): HasMany
     {
-        return $this->hasMany('App\Models\Image');
+        return $this->hasMany(Image::class);
     }
 }
