@@ -26,6 +26,6 @@ class Comment extends Model
 
     public function article(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Article');
+        return $this->belongsTo(Article::class);
     }
 }

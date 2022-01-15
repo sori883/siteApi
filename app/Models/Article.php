@@ -28,21 +28,32 @@ class Article extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     public function image(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Image');
+        return $this->belongsTo(Image::class);
     }
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Tag')->withTimestamps();
+        return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
-    public function comments(): BelongsToMany
+    public function comments(): hasMany
     {
-        return $this->belongsToMany('App\Models\Comment')->withTimestamps();
+        return $this->hasMany(Comment::class)->withTimestamps();
+    }
+
+    /**
+     * 公開日時を設定
+     *
+     * @param  boolean  $bool
+     * @return void
+     */
+    public function setPublishAtAttribute($bool)
+    {
+        $this->attributes['publish_at'] = $bool ? Carbon::now() : null;
     }
 }
