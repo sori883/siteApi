@@ -31,7 +31,7 @@ class ArticlePostRequest extends FormRequest
             'permalink' => 'required|string|max:20',
             'publish_at' => 'required|boolean',
             'image_id' => 'nullable|integer',
-            'tags' => 'json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u'
+            'tags' => 'nullable|json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u'
         ];
     }
 
