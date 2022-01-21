@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Article;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,13 +17,8 @@ class ArticleResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->title,
-            'entry' => $this->resource->entry,
             'permalink' => $this->resource->permalink,
             'publish_at' => $this->resource->publish_at,
-            'created_at' => $this->resource->created_at,
-            'user_id' => $this->resource->user_id,
-            'image_id' => $this->resource->image_id,
-            'updated_at' => $this->resource->updated_at,
         ];
     }
 }

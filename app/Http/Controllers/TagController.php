@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\UseCase\Tag\FetchAllTagAction;
-use App\Http\Resources\TagCollection;
+use App\Http\Resources\Tag\TagCollection;
 
 class TagController extends Controller
 {
