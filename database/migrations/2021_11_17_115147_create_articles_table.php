@@ -17,6 +17,7 @@ class CreateArticlesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable()->default(null)->comment('投稿者のID');
             $table->unsignedBigInteger('image_id')->nullable()->default(null)->comment('記事のアイキャッチ');
+            $table->unsignedBigInteger('category_id')->nullable()->default(null)->comment('記事のカテゴリ');
             $table->string('title', 100)->default('')->comment('記事のタイトル');
             $table->text('entry')->comment('記事の本文');
             $table->string('permalink', 20)->unique()->default('')->comment('記事のパーマリンク');
@@ -26,6 +27,7 @@ class CreateArticlesTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('image_id')->references('id')->on('images')->onUpdate('SET NULL');
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('SET NULL');
         });
     }
 
