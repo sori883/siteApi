@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Article;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class TagCollection extends ResourceCollection
+class ArticleCollection extends ResourceCollection
 {
     /**
-     * IDとタグ名だけを返す
+     * Transform the resource collection into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
@@ -15,7 +15,7 @@ class TagCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'tags' => $this->collection,
+            'articles' => ArticleResource::collection($this->collection)
         ];
     }
 }
