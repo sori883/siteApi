@@ -56,4 +56,17 @@ class Article extends Model
     {
         $this->attributes['publish_at'] = $bool ? Carbon::now() : null;
     }
+
+    /**
+     * 公開日時を取得
+     *
+     * @param  datatime  $value
+     * @return Carbon
+     */
+    public function getPublishAtAttribute($value)
+    {
+        // limit_atをyyyy/mm/dd形式で取得する
+        return $value ? Carbon::parse($value)->format('Y/m/d') : null;
+    }
+
 }

@@ -5,19 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\ArticlePostRequest;
+use App\UseCase\Article\FetchAllArticleAction;
 use App\UseCase\Article\StoreAction;
-use App\Http\Resources\ArticleResource;
+use App\Http\Resources\Article\ArticleCollection;
 
 class ArticleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 全ての記事を取得する
      *
-     * @return \Illuminate\Http\Response
+     * @param FetchAllArticleAction $action
+     * @return ArticleCollection
      */
-    public function index()
+    public function fetchAllArticles(FetchAllArticleAction $action): ArticleCollection
     {
-        //
+        return new ArticleCollection($action());
     }
 
     /**

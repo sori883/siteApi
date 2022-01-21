@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Auth\ForgotController;
@@ -21,7 +20,10 @@ use App\Http\Controllers\ArticleController;
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/me', MeController::class);
+
     Route::get('/fetchAllTags', [TagController::class, 'fetchAllTags']);
+
+    Route::get('/fetchAllArticles', [ArticleController::class, 'fetchAllArticles']);
     Route::post('/storeArticle', [ArticleController::class, 'store']);
 });
 
