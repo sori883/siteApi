@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\ForgotController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/fetchAllArticles', [ArticleController::class, 'fetchAllArticles']);
     Route::post('/storeArticle', [ArticleController::class, 'store']);
+    Route::delete('/deleteArticle/{article}', [ArticleController::class, 'destroy']);
+
+    Route::get('/fetchAllCategories', [CategoryController::class, 'fetchAllCategories']);
 });
 
 Route::post('/forgot', [ForgotController::class, 'forgot']);
