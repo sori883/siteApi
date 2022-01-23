@@ -4,6 +4,7 @@ namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Support\Collection;
 
 class ArticlePostRequest extends FormRequest
@@ -31,6 +32,7 @@ class ArticlePostRequest extends FormRequest
             'permalink' => 'required|string|max:20',
             'publish_at' => 'required|boolean',
             'image_id' => 'nullable|integer',
+            'category_id' => 'nullable|integer',
             'tags' => 'nullable|json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u'
         ];
     }
@@ -38,6 +40,11 @@ class ArticlePostRequest extends FormRequest
     public function makeArticle(): Article
     {
         return new Article($this->validated());
+    }
+
+    public function makeCategory(): Category
+    {
+        return Category::where('id', $this->validated()['category_id'])->first();
     }
 
     public function makeTags(): Collection

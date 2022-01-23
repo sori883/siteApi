@@ -36,6 +36,11 @@ class Article extends Model
         return $this->belongsTo(Image::class);
     }
 
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();
@@ -68,5 +73,4 @@ class Article extends Model
         // limit_atをyyyy/mm/dd形式で取得する
         return $value ? Carbon::parse($value)->format('Y/m/d') : null;
     }
-
 }
