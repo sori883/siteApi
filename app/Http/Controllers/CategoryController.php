@@ -4,9 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\UseCase\Category\FetchAllCategoryAction;
+use App\Http\Resources\Category\CategoryCollection;
 
-class CatetgoryController extends Controller
+
+class CategoryController extends Controller
 {
+    /**
+     * 全てのカテゴリーを取得する
+     *
+     * @param FetchAllCategoryAction $action
+     * @return CategoryCollection
+     */
+    public function fetchAllCategories(FetchAllCategoryAction $action): CategoryCollection
+    {
+        return new CategoryCollection($action());
+    }
+
     /**
      * Display a listing of the resource.
      *
