@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\UseCase\Category\FetchAllCategoryAction;
 use App\Http\Resources\Category\CategoryCollection;
 
-
 class CategoryController extends Controller
 {
     /**
