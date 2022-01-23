@@ -8,9 +8,19 @@ use App\Http\Requests\Article\ArticlePostRequest;
 use App\UseCase\Article\FetchAllArticleAction;
 use App\UseCase\Article\StoreAction;
 use App\Http\Resources\Article\ArticleCollection;
+use App\Http\Resources\Article\ArticleResource;
 
 class ArticleController extends Controller
 {
+
+    /**
+     * Policyのため
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Article::class, 'article');
+    }
+
     /**
      * 全ての記事を取得する
      *
@@ -19,7 +29,8 @@ class ArticleController extends Controller
      */
     public function fetchAllArticles(FetchAllArticleAction $action): ArticleCollection
     {
-        return new ArticleCollection($action());
+        $user = auth()->user();
+        return new ArticleCollection($action($user));
     }
 
     /**
@@ -32,8 +43,9 @@ class ArticleController extends Controller
     {
         $article = $request->makeArticle();
         $tags = $request->makeTags();
+        $category = $request->makeCategory();
         $user = $request->user();
-        return new ArticleResource($action($article, $user, $tags));
+        return new ArticleResource($action($article, $user, $tags, $category));
     }
 
     /**
@@ -56,6 +68,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return response(200);
     }
 }
