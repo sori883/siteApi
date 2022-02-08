@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources\Category;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryCollection extends ResourceCollection
+class CategoryListResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
@@ -15,7 +15,9 @@ class CategoryCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'categories' => CategoryListResource::collection($this->collection)
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            'slug' => $this->resource->slug,
         ];
     }
 }

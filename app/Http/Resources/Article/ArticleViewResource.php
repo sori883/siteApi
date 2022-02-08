@@ -3,8 +3,10 @@
 namespace App\Http\Resources\Article;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Category\CategoryListResource;
+use App\Http\Resources\Tag\TagResource;
 
-class ArticleResource extends JsonResource
+class ArticleViewResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,8 +19,11 @@ class ArticleResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->title,
+            'entry' => $this->resource->entry,
             'permalink' => $this->resource->permalink,
             'publish_at' => $this->resource->publish_at,
+            'category' => CategoryListResource::make($this->resource->category),
+            'tags' => TagResource::collection($this->resource->tags),
         ];
     }
 }

@@ -9,7 +9,7 @@ class FetchAllTagAction
 {
     public function __invoke(): Collection
     {
-        $tags = Tag::select('id', 'name')->get();
+        $tags = Tag::select('id', 'text')->get();
         return $tags;
     }
 }
