@@ -14,7 +14,7 @@ class TagFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->realText(20),
+            'text' => $this->faker->unique()->realText(20),
             'created_at' => $this->faker->date,
             'updated_at' => $this->faker->date
         ];

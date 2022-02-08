@@ -3,11 +3,10 @@
 namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Support\Collection;
 
-class ArticlePostRequest extends FormRequest
+class ArticleUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -37,9 +36,15 @@ class ArticlePostRequest extends FormRequest
         ];
     }
 
-    public function makeArticle(): Article
+    public function makeArticle(): array
     {
-        return new Article($this->validated());
+        return [
+            'title' => $this->validated()['title'],
+            'entry' => $this->validated()['entry'],
+            'permalink' => $this->validated()['permalink'],
+            'publish_at' => $this->validated()['publish_at'],
+            'image_id' => $this->validated()['image_id'],
+        ];
     }
 
     public function makeCategory(): Category

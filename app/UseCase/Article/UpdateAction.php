@@ -5,18 +5,17 @@ namespace App\UseCase\Article;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
-use App\Models\User;
 use Illuminate\Support\Collection;
 
-class StoreAction
+class UpdateAction
 {
-    public function __invoke(Article $article, User $user, Collection $tags, Category $category): Article
+    public function __invoke(Article $article, array $articleRequest, Collection $tags, Category $category): Article
     {
         // ドメインバリデーションとか
         // パーマリンクとかのね
 
-        // 記事更新
-        $article->user_id = $user->id;
+        // 記事登録
+        $article->fill($articleRequest);
         $article->category_id = $category->id;
         $article->save();
 

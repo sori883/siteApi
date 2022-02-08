@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable()->default(null)->comment('作成者のID');
             $table->string('name', 20)->unique()->default('')->comment('カテゴリ名');
+            $table->string('slug', 20)->unique()->default('')->comment('urlに表示する名前');
             $table->softDeletes();
             $table->timestamps();
 

@@ -15,7 +15,8 @@ class CategoryFactory extends Factory
     {
         return [
             'user_id' => null,
-            'name' => $this->faker->realText(10),
+            'name' => $this->faker->unique()->realText(10),
+            'slug' => $this->faker->unique()->regexify('[a-z]{4}[0-9]{4}'),
             'created_at' => $this->faker->date,
             'updated_at' => $this->faker->date
         ];

@@ -25,7 +25,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/fetchAllTags', [TagController::class, 'fetchAllTags']);
 
     Route::get('/fetchAllArticles', [ArticleController::class, 'fetchAllArticles']);
+    Route::get('/fetchArticle/{article}', [ArticleController::class, 'fetchArticles']);
     Route::post('/storeArticle', [ArticleController::class, 'store']);
+    Route::patch('/updateArticle/{article}', [ArticleController::class, 'update']);
     Route::delete('/deleteArticle/{article}', [ArticleController::class, 'destroy']);
 
     Route::get('/fetchAllCategories', [CategoryController::class, 'fetchAllCategories']);

@@ -3,24 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use Illuminate\Http\Request;
-use App\Http\Requests\Article\ArticlePostRequest;
+use App\Http\Requests\Article\ArticleStoreRequest;
+use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\UseCase\Article\FetchAllArticleAction;
 use App\UseCase\Article\StoreAction;
+use App\UseCase\Article\UpdateAction;
 use App\Http\Resources\Article\ArticleCollection;
-use App\Http\Resources\Article\ArticleResource;
+use App\Http\Resources\Article\ArticleViewResource;
 
 class ArticleController extends Controller
 {
-
-    /**
-     * Policyのため
-     */
-    public function __construct()
-    {
-        $this->authorizeResource(Article::class, 'article');
-    }
-
     /**
      * 全ての記事を取得する
      *
@@ -34,18 +26,30 @@ class ArticleController extends Controller
     }
 
     /**
+     * 特定の記事を取得する
+     *
+     * @param Article $article
+     * @return ArticleViewResource
+     */
+    public function fetchArticles(Article $article): ArticleViewResource
+    {
+        return new ArticleViewResource($article);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticlePostRequest $request, StoreAction $action)
+    public function store(ArticleStoreRequest $request, StoreAction $action): ArticleViewResource
     {
+        $user = $request->user();
         $article = $request->makeArticle();
         $tags = $request->makeTags();
         $category = $request->makeCategory();
-        $user = $request->user();
-        return new ArticleResource($action($article, $user, $tags, $category));
+
+        return new ArticleViewResource($action($article, $user, $tags, $category));
     }
 
     /**
@@ -55,9 +59,14 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Article $article, ArticleUpdateRequest $request, UpdateAction $action): ArticleViewResource
     {
-        //
+        $this->authorize('update', $article);
+        $articleRequest = $request->makeArticle();
+        $tags = $request->makeTags();
+        $category = $request->makeCategory();
+
+        return new ArticleViewResource($action($article, $articleRequest, $tags, $category));
     }
 
     /**
@@ -68,6 +77,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
+        $this->authorize('delete', $article);
         $article->delete();
         return response(200);
     }
