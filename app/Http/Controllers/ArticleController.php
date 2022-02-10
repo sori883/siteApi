@@ -81,4 +81,18 @@ class ArticleController extends Controller
         $article->delete();
         return response(200);
     }
+
+    /**
+     * 記事の公開、非公開を切り替える
+     *
+     * @param Article $article
+     * @return void
+     */
+    public function visible(Article $article)
+    {
+        $this->authorize('visible', $article);
+        $article->publish_at = !$article->publish_at ? true : false;
+        $article->save();
+        return response(200);
+    }
 }
