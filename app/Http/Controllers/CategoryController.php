@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\Category\CategoryStoreRequest;
+use App\UseCase\Category\StoreAction;
 use App\UseCase\Category\FetchAllCategoryAction;
 use App\Http\Resources\Category\CategoryCollection;
+use App\Http\Resources\Category\CategoryListResource;
 
 class CategoryController extends Controller
 {
@@ -21,45 +24,17 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request, StoreAction $action)
     {
-        //
-    }
+        $user = $request->user();
+        $category = $request->makeCategory();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
+        return new CategoryListResource($action($category, $user));
     }
 
     /**
@@ -93,6 +68,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $this->authorize('delete', $category);
+        $category->delete();
+        return response(200);
     }
 }
