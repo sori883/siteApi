@@ -9,7 +9,7 @@ class FetchAllCategoryAction
 {
     public function __invoke(): Collection
     {
-        $categories = Category::select('id', 'name')->get();
+        $categories = Category::select('id', 'name', 'slug')->get();
         return $categories;
     }
 }

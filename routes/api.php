@@ -32,6 +32,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::patch('/visibleArticle/{article}', [ArticleController::class, 'visible']);
 
     Route::get('/fetchAllCategories', [CategoryController::class, 'fetchAllCategories']);
+    Route::post('/storeCategory', [CategoryController::class, 'store']);
+    Route::delete('/deleteCategory/{category}', [CategoryController::class, 'destroy']);
 });
 
 Route::post('/forgot', [ForgotController::class, 'forgot']);
