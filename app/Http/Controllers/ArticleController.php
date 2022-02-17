@@ -78,6 +78,7 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $this->authorize('delete', $article);
+        $article->tags()->detach();
         $article->delete();
         return response(200);
     }
