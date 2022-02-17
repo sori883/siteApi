@@ -20,6 +20,7 @@ class UpdateAction
         $article->save();
 
         // タグ登録
+        $article->tags()->detach();
         $tags->each(function ($tagName) use ($article) {
             $tag = Tag::firstOrCreate(['text' => $tagName]);
             $article->tags()->attach($tag);
