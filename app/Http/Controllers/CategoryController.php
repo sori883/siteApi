@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Requests\Category\CategoryStoreRequest;
+use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\UseCase\Category\StoreAction;
+use App\UseCase\Category\UpdateAction;
 use App\UseCase\Category\FetchAllCategoryAction;
 use App\Http\Resources\Category\CategoryCollection;
 use App\Http\Resources\Category\CategoryListResource;
@@ -38,26 +39,17 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryUpdateRequest $request, Category $category, UpdateAction $action)
     {
-        //
+        $this->authorize('update', $category);
+        $categoryRequest = $request->makeCategory();
+        return new CategoryListResource($action($category, $categoryRequest));
     }
 
     /**

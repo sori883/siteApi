@@ -23,6 +23,6 @@ class Tag extends Model
 
     public function articles(): BelongsToMany
     {
-        return $this->belongsToMany(Aricle::class)->withTimestamps();
+        return $this->belongsToMany(Article::class)->withTimestamps();
     }
 }
