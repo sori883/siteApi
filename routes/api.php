@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\MeController;
-use App\Http\Controllers\Auth\ForgotController;
-use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
@@ -38,6 +36,3 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::patch('/updateCategory/{category}', [CategoryController::class, 'update']);
     Route::delete('/deleteCategory/{category}', [CategoryController::class, 'destroy']);
 });
-
-Route::post('/forgot', [ForgotController::class, 'forgot']);
-Route::post('/reset', [PasswordResetController::class, 'reset']);
