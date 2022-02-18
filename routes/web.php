@@ -16,7 +16,9 @@ use App\Http\Controllers\Auth\RegisterController;
 |
 */
 
-Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', [LoginController::class, 'logout']);
-Route::post('verify', [VerifyController::class, 'verify']);
-Route::post('register', [RegisterController::class, 'register']);
+Route::prefix('api')->group(function () {
+    Route::post('login', [LoginController::class, 'login']);
+    Route::post('logout', [LoginController::class, 'logout']);
+    Route::post('verify', [VerifyController::class, 'verify']);
+    Route::post('register', [RegisterController::class, 'register']);
+});
