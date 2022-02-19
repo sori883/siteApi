@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Category;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class CategoryUpdateRequest extends FormRequest
+class CategoryUpdateRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.

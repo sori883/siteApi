@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Category;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 use App\Models\Category;
 
-class CategoryStoreRequest extends FormRequest
+class CategoryStoreRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.

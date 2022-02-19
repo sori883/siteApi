@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Article;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Support\Collection;
 
-class ArticleStoreRequest extends FormRequest
+class ArticleStoreRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
