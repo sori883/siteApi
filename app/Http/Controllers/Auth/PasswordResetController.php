@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\Auth\AuthenticationTrait;
-use App\Http\Requests\ResetRequest;
+use App\Http\Requests\Auth\ResetRequest;
 use App\Models\User;
 use App\Models\PasswordReset;
 

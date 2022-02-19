@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\RegisterUser;
-use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Traits\Auth\AuthenticationTrait;
 use App\Mail\VerificationMail;
 use Illuminate\Support\Facades\Mail;

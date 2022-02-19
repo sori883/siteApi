@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\ForgotRequest;
+use App\Http\Requests\Auth\ForgotRequest;
 use App\Traits\Auth\AuthenticationTrait;
 use App\Models\PasswordReset;
 use App\Mail\PasswordResetMail;

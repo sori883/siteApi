@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\ApiRequest;
 
-
-class VerifyRequest extends ApiRequest
+class LoginRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +24,8 @@ class VerifyRequest extends ApiRequest
     public function rules()
     {
         return [
-            'token' => 'required',
+            'email' => 'required|string',
+            'password' => 'required|string',
         ];
     }
 }
