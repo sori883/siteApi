@@ -8,6 +8,8 @@ use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\UseCase\Article\FetchAllArticleAction;
 use App\UseCase\Article\StoreAction;
 use App\UseCase\Article\UpdateAction;
+use App\UseCase\Article\DeleteAction;
+use App\UseCase\Article\VisibleAction;
 use App\Http\Resources\Article\ArticleCollection;
 use App\Http\Resources\Article\ArticleViewResource;
 
@@ -75,11 +77,10 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Article $article, DeleteAction $action)
     {
         $this->authorize('delete', $article);
-        $article->tags()->detach();
-        $article->delete();
+        $action($article);
         return response(200);
     }
 
@@ -89,11 +90,9 @@ class ArticleController extends Controller
      * @param Article $article
      * @return void
      */
-    public function visible(Article $article)
+    public function visible(Article $article, VisibleAction $action)
     {
         $this->authorize('visible', $article);
-        $article->publish_at = !$article->publish_at ? true : false;
-        $article->save();
-        return response(200);
+        return new ArticleViewResource($action($article));
     }
 }

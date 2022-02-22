@@ -7,6 +7,7 @@ use App\Http\Requests\Category\CategoryStoreRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\UseCase\Category\StoreAction;
 use App\UseCase\Category\UpdateAction;
+use App\UseCase\Category\DeleteAction;
 use App\UseCase\Category\FetchAllCategoryAction;
 use App\Http\Resources\Category\CategoryCollection;
 use App\Http\Resources\Category\CategoryListResource;
@@ -58,10 +59,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category, DeleteAction $action)
     {
         $this->authorize('delete', $category);
-        $category->delete();
+        $action($category);
         return response(200);
     }
 }

@@ -11,9 +11,6 @@ class UpdateAction
 {
     public function __invoke(Article $article, array $articleRequest, Collection $tags, Category $category): Article
     {
-        // ドメインバリデーションとか
-        // パーマリンクとかのね
-
         // 記事登録
         $article->fill($articleRequest);
         $article->category_id = $category->id;

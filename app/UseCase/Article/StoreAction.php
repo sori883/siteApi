@@ -12,9 +12,6 @@ class StoreAction
 {
     public function __invoke(Article $article, User $user, Collection $tags, Category $category): Article
     {
-        // ドメインバリデーションとか
-        // パーマリンクとかのね
-
         // 記事更新
         $article->user_id = $user->id;
         $article->category_id = $category->id;
