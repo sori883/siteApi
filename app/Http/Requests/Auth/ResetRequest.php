@@ -24,8 +24,8 @@ class ResetRequest extends ApiRequest
     public function rules()
     {
         return [
-            'password' => 'required|confirmed',
-            'token' => 'required|string',
+            'password' => ['required', 'confirmed'],
+            'token' => ['required', 'string'],
         ];
     }
 }

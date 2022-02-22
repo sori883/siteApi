@@ -153,6 +153,20 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => '名前',
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+        'token' => 'トークン',
+        'title' => 'タイトル',
+        'entry' => '本文',
+        'permalink' => 'パーマリンク',
+        'publish_at' => '公開日',
+        'image_id' => '画像',
+        'category_id' => 'カテゴリー',
+        'tags' => 'タグ',
+        'slug' => 'スラッグ',
+        'text' => 'タグ名',
+    ],
 
 ];

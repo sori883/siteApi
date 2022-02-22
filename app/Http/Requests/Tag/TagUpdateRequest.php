@@ -24,7 +24,7 @@ class TagUpdateRequest extends ApiRequest
     public function rules()
     {
         return [
-            'text' => 'required|string|max:20'
+            'text' => ['required', 'string', 'max:20']
         ];
     }
 

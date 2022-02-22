@@ -25,7 +25,7 @@ class VerifyRequest extends ApiRequest
     public function rules()
     {
         return [
-            'token' => 'required',
+            'token' => ['required'],
         ];
     }
 }

@@ -25,8 +25,8 @@ class CategoryStoreRequest extends ApiRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:20',
-            'slug' => 'required|string|max:20',
+            'name' => ['required', 'string', 'max:20',],
+            'slug' => ['required', 'regex:/^[0-9a-zA-Z_-]+$/', 'string', 'max:20', 'unique:categories']
         ];
     }
 

@@ -5,6 +5,8 @@ namespace App\Http\Requests\Article;
 use App\Http\Requests\ApiRequest;
 use App\Models\Category;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\Rule;
+
 
 class ArticleUpdateRequest extends ApiRequest
 {
@@ -26,13 +28,14 @@ class ArticleUpdateRequest extends ApiRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:100',
-            'entry' => 'required|string|max:30000',
-            'permalink' => 'required|string|max:20',
-            'publish_at' => 'required|boolean',
-            'image_id' => 'nullable|integer',
-            'category_id' => 'nullable|integer',
-            'tags' => 'nullable|json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u'
+            'title' => ['required', 'string', 'max:100'],
+            'entry' => ['required', 'string', 'max:30000'],
+            'permalink' => ['required', 'regex:/^[0-9a-zA-Z_-]+$/', 'string', 'max:20',
+                                    Rule::unique('articles')->ignore($this->permalink, 'permalink')],
+            'publish_at' => ['required', 'boolean'],
+            'image_id' => ['nullable', 'integer'],
+            'category_id' => ['nullable', 'integer'],
+            'tags' => ['nullable', 'json', 'regex:/^(?!.*\s).+$/u', 'regex:/^(?!.*\/).*$/u']
         ];
     }
 
