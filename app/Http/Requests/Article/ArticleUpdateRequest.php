@@ -7,7 +7,6 @@ use App\Models\Category;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 
-
 class ArticleUpdateRequest extends ApiRequest
 {
     /**

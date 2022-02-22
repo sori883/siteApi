@@ -4,7 +4,6 @@ namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\ApiRequest;
 
-
 class VerifyRequest extends ApiRequest
 {
     /**
