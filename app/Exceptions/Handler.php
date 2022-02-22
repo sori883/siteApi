@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Throwable;
@@ -56,6 +57,11 @@ class Handler extends ExceptionHandler
                 } elseif ($e instanceof ValidationException) {
                     Log::error($e->errors());
                     return $this->invalidJson($request, $e);
+                } elseif ($e instanceof AuthenticationException) {
+                    Log::error('[Unauthorized] ' . $request->method() . ': ' . $request->fullUrl());
+                    return response()->json([
+                        'message' => 'Unauthorized'
+                    ], 401);
                 } else {
                     return response()->json([
                         'message' => 'Internal Server Error'
