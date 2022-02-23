@@ -4,18 +4,26 @@ namespace App\UseCase\Category;
 
 use App\Models\Category;
 use App\Models\User;
+use App\Exceptions\ExclusiveLockException;
+use Illuminate\Support\Facades\DB;
 
 class StoreAction
 {
     public function __invoke(Category $category, User $user): Category
     {
-        // ドメインバリデーションとか
-        // 名前重複とか
+        DB::beginTransaction();
 
-        // 記事更新
-        $category->user_id = $user->id;
-        $category->save();
+        try {
+            // 記事更新
+            $category->user_id = $user->id;
+            $category->save();
 
-        return $category;
+            DB::commit();
+
+            return $category;
+        } catch (ExclusiveLockException $e) {
+            DB::rollback();
+            throw $e;
+        }
     }
 }
