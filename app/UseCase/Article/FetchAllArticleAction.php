@@ -4,15 +4,15 @@ namespace App\UseCase\Article;
 
 use App\Models\Article;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class FetchAllArticleAction
 {
-    public function __invoke(User $user): Collection
+    public function __invoke(User $user): LengthAwarePaginator
     {
         $articles = Article::select('id', 'title', 'permalink', 'publish_at')
         ->where('user_id', $user->id)
-        ->get();
+        ->paginate(15);
         return $articles;
     }
 }
