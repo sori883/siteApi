@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Category;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 use App\Models\Category;
 
-class CategoryStoreRequest extends FormRequest
+class CategoryStoreRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,8 @@ class CategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:20',
-            'slug' => 'required|string|max:20',
+            'name' => ['required', 'string', 'max:20',],
+            'slug' => ['required', 'regex:/^[0-9a-zA-Z_-]+$/', 'string', 'max:20', 'unique:categories']
         ];
     }
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\VerifyRequest;
+use App\Http\Requests\Auth\VerifyRequest;
 use App\Traits\Auth\AuthenticationTrait;
 use App\Models\RegisterUser;
 use App\Models\User;

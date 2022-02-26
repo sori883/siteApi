@@ -3,24 +3,18 @@
 namespace App\UseCase\Category;
 
 use App\Models\Category;
-use App\Models\User;
 use App\Exceptions\ExclusiveLockException;
 use Illuminate\Support\Facades\DB;
 
-class StoreAction
+class DeleteAction
 {
-    public function __invoke(Category $category, User $user): Category
+    public function __invoke(Category $category)
     {
         DB::beginTransaction();
-
         try {
-            // 記事更新
-            $category->user_id = $user->id;
-            $category->save();
+            $category->delete();
 
             DB::commit();
-
-            return $category;
         } catch (ExclusiveLockException $e) {
             DB::rollback();
             throw $e;

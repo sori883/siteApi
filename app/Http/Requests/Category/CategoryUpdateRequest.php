@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Category;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
+use Illuminate\Validation\Rule;
 
-class CategoryUpdateRequest extends FormRequest
+class CategoryUpdateRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +25,9 @@ class CategoryUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:20',
-            'slug' => 'required|string|max:20',
+            'name' => ['required', 'string', 'max:20',],
+            'slug' => ['required', 'regex:/^[0-9a-zA-Z_-]+$/', 'string', 'max:20',
+                        Rule::unique('categories')->ignore($this->slug, 'slug')],
         ];
     }
 

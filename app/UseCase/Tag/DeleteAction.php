@@ -3,21 +3,19 @@
 namespace App\UseCase\Tag;
 
 use App\Models\Tag;
+use App\Exceptions\ExclusiveLockException;
 use Illuminate\Support\Facades\DB;
 
-class UpdateAction
+class DeleteAction
 {
-    public function __invoke(Tag $tag, array $tagRequest): Tag
+    public function __invoke(Tag $tag)
     {
         DB::beginTransaction();
         try {
-            // 記事登録
-            $tag->fill($tagRequest);
-            $tag->save();
+            $tag->articles()->detach();
+            $tag->delete();
 
             DB::commit();
-
-            return $tag;
         } catch (ExclusiveLockException $e) {
             DB::rollback();
             throw $e;

@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Tag;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class TagUpdateRequest extends FormRequest
+class TagUpdateRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class TagUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'text' => 'required|string|max:20'
+            'text' => ['required', 'string', 'max:20']
         ];
     }
 

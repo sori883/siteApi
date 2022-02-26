@@ -17,16 +17,12 @@ return [
 
     'paths' => [
         'api/*',
-        'login',
-        'logout',
-        'register',
-        'verify',
         'sanctum/csrf-cookie'
     ],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000'],
+    'allowed_origins' => [config('app.front_url')],
 
     'allowed_origins_patterns' => [],
 

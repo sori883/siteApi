@@ -5,8 +5,10 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
+use App\Exceptions\ExclusiveLockException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -56,6 +58,17 @@ class Handler extends ExceptionHandler
                 } elseif ($e instanceof ValidationException) {
                     Log::error($e->errors());
                     return $this->invalidJson($request, $e);
+                } elseif ($e instanceof AuthenticationException) {
+                    Log::error('[Unauthorized] ' . $request->method() . ': ' . $request->fullUrl());
+                    return response()->json([
+                        'message' => 'Unauthorized'
+                    ], 401);
+                    // どの例外クラスが発生したかによって処理を分けられる。
+                } elseif ($e instanceof ExclusiveLockException) {
+                    Log::error('[排他エラー] ' . $request->method() . ': ' . $request->fullUrl());
+                    return response()->json([
+                        'message' => '排他エラーです'
+                    ], $e->getStatusCode());
                 } else {
                     return response()->json([
                         'message' => 'Internal Server Error'

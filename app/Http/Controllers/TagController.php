@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
-use Illuminate\Http\Request;
 use App\Http\Requests\Tag\TagUpdateRequest;
 use App\UseCase\Tag\FetchAllTagAction;
 use App\UseCase\Tag\UpdateAction;
+use App\UseCase\Tag\DeleteAction;
 use App\Http\Resources\Tag\TagCollection;
 use App\Http\Resources\Tag\TagResource;
 
@@ -20,7 +20,8 @@ class TagController extends Controller
      */
     public function fetchAllTags(FetchAllTagAction $action): TagCollection
     {
-        return new TagCollection($action());
+        $currentPage = request()->get('page', 1);
+        return new TagCollection($action($currentPage));
     }
 
     /**
@@ -42,10 +43,9 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tag $tag)
+    public function destroy(Tag $tag, DeleteAction $action)
     {
-        $tag->articles()->detach();
-        $tag->delete();
+        $action($tag);
         return response(200);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class ResetRequest extends FormRequest
+class ResetRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class ResetRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required|confirmed',
-            'token' => 'required|string',
+            'password' => ['required', 'confirmed'],
+            'token' => ['required', 'string'],
         ];
     }
 }
