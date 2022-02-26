@@ -43,7 +43,7 @@ class ArticleStoreRequest extends ApiRequest
         return new Article($this->validated());
     }
 
-    public function makeCategory(): Category
+    public function makeCategory()
     {
         return Category::where('id', $this->validated()['category_id'])->first();
     }

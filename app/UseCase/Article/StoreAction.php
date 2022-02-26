@@ -12,13 +12,16 @@ use Illuminate\Support\Facades\DB;
 
 class StoreAction
 {
-    public function __invoke(Article $article, User $user, Collection $tags, Category $category): Article
+    public function __invoke(Article $article, User $user, Collection $tags, ?Category $category): Article
     {
         DB::beginTransaction();
         try {
             // 記事更新
             $article->user_id = $user->id;
-            $article->category_id = $category->id;
+            if ($category) {
+                // カテゴリーが選択されている場合のみ
+                $article->category_id = $category->id;
+            }
             $article->save();
 
             // タグ登録
