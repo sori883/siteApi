@@ -20,7 +20,8 @@ class TagController extends Controller
      */
     public function fetchAllTags(FetchAllTagAction $action): TagCollection
     {
-        return new TagCollection($action());
+        $currentPage = request()->get('page',1);
+        return new TagCollection($action($currentPage));
     }
 
     /**

@@ -22,7 +22,8 @@ class CategoryController extends Controller
      */
     public function fetchAllCategories(FetchAllCategoryAction $action): CategoryCollection
     {
-        return new CategoryCollection($action());
+        $currentPage = request()->get('page',1);
+        return new CategoryCollection($action($currentPage));
     }
 
     /**
