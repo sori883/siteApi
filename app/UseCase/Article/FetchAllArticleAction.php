@@ -13,11 +13,12 @@ class FetchAllArticleAction
     public function __invoke(User $user, int $currentPage): LengthAwarePaginator
     {
         try {
-            $articles = Cache::tags(['article', 'all'])->rememberForever('FetchAllArticleAction-' . $currentPage,function() use ($user) {
-                return Article::select('id', 'title', 'permalink', 'publish_at')
-                ->where('user_id', $user->id)
-                ->paginate(15);
-            });
+            $articles = Cache::tags(['article', 'all'])
+                ->rememberForever('FetchAllArticleAction-' . $currentPage, function () use ($user) {
+                    return Article::select('id', 'title', 'permalink', 'publish_at')
+                    ->where('user_id', $user->id)
+                    ->paginate(15);
+                });
             return $articles;
         } catch (ExclusiveLockException $e) {
             throw $e;

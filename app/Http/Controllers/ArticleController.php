@@ -24,7 +24,7 @@ class ArticleController extends Controller
     public function fetchAllArticles(FetchAllArticleAction $action): ArticleCollection
     {
         $user = auth()->user();
-        $currentPage = request()->get('page',1);
+        $currentPage = request()->get('page', 1);
         return new ArticleCollection($action($user, $currentPage));
     }
 

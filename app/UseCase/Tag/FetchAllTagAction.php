@@ -12,7 +12,7 @@ class FetchAllTagAction
     public function __invoke(int $currentPage): LengthAwarePaginator
     {
         try {
-            $tags = Cache::tags(['tag', 'all'])->rememberForever('tagAll-' . $currentPage, function() {
+            $tags = Cache::tags(['tag', 'all'])->rememberForever('tagAll-' . $currentPage, function () {
                 return Tag::select('id', 'text')
                 ->paginate(50);
             });

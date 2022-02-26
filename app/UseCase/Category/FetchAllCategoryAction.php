@@ -12,7 +12,7 @@ class FetchAllCategoryAction
     public function __invoke(int $currentPage): LengthAwarePaginator
     {
         try {
-            $categories = Cache::tags(['category', 'all'])->rememberForever('categoryAll-' . $currentPage, function() {
+            $categories = Cache::tags(['category', 'all'])->rememberForever('categoryAll-' . $currentPage, function () {
                 return Category::select('id', 'name', 'slug')
                 ->paginate(50);
             });
