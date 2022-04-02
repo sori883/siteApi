@@ -17,10 +17,7 @@ class UpdateAction
         try {
             // 記事登録
             $article->fill($articleRequest);
-            if ($category) {
-                // カテゴリーが選択されている場合のみ
-                $article->category_id = $category->id;
-            }
+            $article->category_id = $category ? $category->id : null;
             $article->save();
 
             // タグ登録

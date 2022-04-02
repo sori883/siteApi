@@ -22,6 +22,7 @@ class ArticleViewResource extends JsonResource
             'entry' => $this->resource->entry,
             'permalink' => $this->resource->permalink,
             'publish_at' => $this->resource->publish_at,
+            'image_id' => null,
             'category' => CategoryListResource::make($this->resource->category),
             'tags' => TagResource::collection($this->resource->tags),
         ];

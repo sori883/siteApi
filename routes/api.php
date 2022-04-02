@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/me', MeController::class);
 
     Route::get('/fetchAllTags', [TagController::class, 'fetchAllTags']);
+    Route::get('/fetchSelectorTags', [TagController::class, 'fetchSelectorTags']);
     Route::patch('/updateTag/{tag}', [TagController::class, 'update']);
     Route::delete('/deleteTag/{tag}', [TagController::class, 'destroy']);
 
@@ -32,6 +33,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::patch('/visibleArticle/{article}', [ArticleController::class, 'visible']);
 
     Route::get('/fetchAllCategories', [CategoryController::class, 'fetchAllCategories']);
+    Route::get('/fetchSelectorCategories', [CategoryController::class, 'fetchSelectorCategories']);
     Route::post('/storeCategory', [CategoryController::class, 'store']);
     Route::patch('/updateCategory/{category}', [CategoryController::class, 'update']);
     Route::delete('/deleteCategory/{category}', [CategoryController::class, 'destroy']);

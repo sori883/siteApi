@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Article;
+namespace App\Http\Resources\Category;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ArticleCollection extends ResourceCollection
+class CategorySelector extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,9 +14,6 @@ class ArticleCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return [
-            'data' => ArticleListResource::collection($this->collection),
-            'lastPage' => $this->lastPage() // ページャーの最終ページ
-        ];
+        return CategorySelectorResource::collection($this->collection);
     }
 }

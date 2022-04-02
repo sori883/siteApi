@@ -18,10 +18,7 @@ class StoreAction
         try {
             // 記事更新
             $article->user_id = $user->id;
-            if ($category) {
-                // カテゴリーが選択されている場合のみ
-                $article->category_id = $category->id;
-            }
+            $article->category_id = $category ? $category->id : null;
             $article->save();
 
             // タグ登録

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Http\Requests\Tag\TagUpdateRequest;
 use App\UseCase\Tag\FetchAllTagAction;
+use App\UseCase\Tag\FetchSelectorTags;
 use App\UseCase\Tag\UpdateAction;
 use App\UseCase\Tag\DeleteAction;
 use App\Http\Resources\Tag\TagCollection;
+use App\Http\Resources\Tag\TagSelector;
 use App\Http\Resources\Tag\TagResource;
 
 class TagController extends Controller
@@ -22,6 +24,17 @@ class TagController extends Controller
     {
         $currentPage = request()->get('page', 1);
         return new TagCollection($action($currentPage));
+    }
+
+    /**
+     * セレクト用のタグを取得する
+     *
+     * @param FetchAllTagAction $action
+     * @return TagSelector
+     */
+    public function fetchSelectorTags(FetchSelectorTags $action): TagSelector
+    {
+        return new TagSelector($action());
     }
 
     /**
