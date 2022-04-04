@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\DB;
 
 class UpdateAction
 {
-    public function __invoke(Article $article, array $articleRequest, Collection $tags, Category $category): Article
+    public function __invoke(Article $article, array $articleRequest, Collection $tags, ?Category $category): Article
     {
         DB::beginTransaction();
         try {
             // 記事登録
             $article->fill($articleRequest);
-            $article->category_id = $category->id;
+            $article->category_id = $category ? $category->id : null;
             $article->save();
 
             // タグ登録

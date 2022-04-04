@@ -36,7 +36,7 @@ class ArticleController extends Controller
      */
     public function fetchArticles(Article $article): ArticleViewResource
     {
-        return new ArticleViewResource($article);
+        return new ArticleViewResource(Article::find($article->id));
     }
 
     /**

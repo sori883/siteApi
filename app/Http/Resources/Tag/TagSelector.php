@@ -4,7 +4,7 @@ namespace App\Http\Resources\Tag;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class TagCollection extends ResourceCollection
+class TagSelector extends ResourceCollection
 {
     /**
      * IDとタグ名だけを返す
@@ -14,9 +14,6 @@ class TagCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return [
-            'data' => TagResource::collection($this->collection),
-            'lastPage' => $this->lastPage() // ページャーの最終ページ
-        ];
+        return TagSelectorResource::collection($this->collection);
     }
 }

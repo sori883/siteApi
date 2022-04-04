@@ -14,7 +14,7 @@ class FetchAllCategoryAction
         try {
             $categories = Cache::tags(['category', 'all'])->rememberForever('categoryAll-' . $currentPage, function () {
                 return Category::select('id', 'name', 'slug')
-                ->paginate(50);
+                ->paginate(15);
             });
             return $categories;
         } catch (ExclusiveLockException $e) {

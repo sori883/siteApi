@@ -14,7 +14,7 @@ class FetchAllTagAction
         try {
             $tags = Cache::tags(['tag', 'all'])->rememberForever('tagAll-' . $currentPage, function () {
                 return Tag::select('id', 'text')
-                ->paginate(50);
+                ->paginate(15);
             });
             return $tags;
         } catch (ExclusiveLockException $e) {

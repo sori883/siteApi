@@ -20,6 +20,19 @@ class ArticleUpdateRequest extends ApiRequest
     }
 
     /**
+     * バリデーション前の処理
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'tags' => json_encode($this->tags),
+        ]);
+    }
+
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -49,9 +62,12 @@ class ArticleUpdateRequest extends ApiRequest
         ];
     }
 
-    public function makeCategory(): Category
+    public function makeCategory()
     {
-        return Category::where('id', $this->validated()['category_id'])->first();
+        return $this->validated()['category_id'] ?
+        Category::where('id', $this->validated()['category_id'])->first()
+        :
+        null;
     }
 
     public function makeTags(): Collection

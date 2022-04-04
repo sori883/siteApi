@@ -15,7 +15,8 @@ class CategoryCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'categories' => CategoryListResource::collection($this->collection)
+            'data' => CategoryListResource::collection($this->collection),
+            'lastPage' => $this->lastPage() // ページャーの最終ページ
         ];
     }
 }

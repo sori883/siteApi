@@ -9,7 +9,9 @@ use App\UseCase\Category\StoreAction;
 use App\UseCase\Category\UpdateAction;
 use App\UseCase\Category\DeleteAction;
 use App\UseCase\Category\FetchAllCategoryAction;
+use App\UseCase\Category\FetchSelectorCategories;
 use App\Http\Resources\Category\CategoryCollection;
+use App\Http\Resources\Category\CategorySelector;
 use App\Http\Resources\Category\CategoryListResource;
 
 class CategoryController extends Controller
@@ -24,6 +26,17 @@ class CategoryController extends Controller
     {
         $currentPage = request()->get('page', 1);
         return new CategoryCollection($action($currentPage));
+    }
+
+    /**
+     * セレクト用のカテゴリを取得する
+     *
+     * @param FetchAllCategoryAction $action
+     * @return CategorySelector
+     */
+    public function fetchSelectorCategories(FetchSelectorCategories $action): CategorySelector
+    {
+        return new CategorySelector($action());
     }
 
     /**
