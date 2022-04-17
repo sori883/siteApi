@@ -9,6 +9,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use App\Exceptions\ExclusiveLockException;
+use App\Exceptions\StorageException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -68,6 +69,11 @@ class Handler extends ExceptionHandler
                     Log::error('[排他エラー] ' . $request->method() . ': ' . $request->fullUrl());
                     return response()->json([
                         'message' => '排他エラーです'
+                    ], $e->getStatusCode());
+                } elseif ($e instanceof StorageException) {
+                    Log::error('[ストレージエラー] ' . $request->method() . ': ' . $request->fullUrl());
+                    return response()->json([
+                        'message' => 'ストレージエラーです'
                     ], $e->getStatusCode());
                 } else {
                     return response()->json([

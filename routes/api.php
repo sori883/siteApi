@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/storeCategory', [CategoryController::class, 'store']);
     Route::patch('/updateCategory/{category}', [CategoryController::class, 'update']);
     Route::delete('/deleteCategory/{category}', [CategoryController::class, 'destroy']);
+
+    Route::post('/storeImage', [ImageController::class, 'store']);
 });
