@@ -12,7 +12,7 @@ use App\Exceptions\ExclusiveLockException;
 
 class StoreAction
 {
-    public function __invoke(array $images, User $user, Image $model)
+    public function __invoke(array $images, User $user)
     {
         $paths = array();
         // 画像アップロード
@@ -21,7 +21,7 @@ class StoreAction
                 // アップロードフォルダを年単位で分割
                 $paths[] =  [
                     'path' => Storage::put(Carbon::now()->year, $image),
-                    'name' => $image->getClientOriginalName()
+                    'title' => $image->getClientOriginalName()
                 ];
             }
         } catch (StorageException $e) {
@@ -32,8 +32,7 @@ class StoreAction
         // DB登録
         try {
             foreach ($paths as $path) {
-                $model->title = $path['name'];
-                $model->path = $path['path'];
+                $model = Image::create($path);
                 $model->user_id = $user->id;
                 $model->save();
             }

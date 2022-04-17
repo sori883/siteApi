@@ -16,11 +16,11 @@ class ImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ImageStoreRequest $request, Image $model, StoreAction $action)
+    public function store(ImageStoreRequest $request, StoreAction $action)
     {
         $images  = $request->images;
         $user = $request->user();
-        return $action($images, $user, $model);
+        return $action($images, $user);
     }
 
     /**
