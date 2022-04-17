@@ -42,7 +42,6 @@ class StoreAction
             DB::rollback();
         }
 
-
         DB::commit();
     }
 }
