@@ -16,7 +16,7 @@ class CreateImagesTable extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable()->default(null)->comment('投稿者のID');
-            $table->string('title', 30)->unique()->default('')->comment('画像のタイトル');
+            $table->string('title', 30)->default('')->comment('画像のタイトル');
             $table->string('path', 255)->unique()->default('')->comment('画像の保存パス');
             $table->timestamps();
             $table->softDeletes();
