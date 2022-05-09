@@ -12,6 +12,8 @@ use App\Observers\CategoryObserver;
 use App\Models\Category;
 use App\Observers\TagObserver;
 use App\Models\Tag;
+use App\Models\Image;
+use App\Observers\ImageObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -37,5 +39,6 @@ class EventServiceProvider extends ServiceProvider
         Article::observe(ArticleObserver::class);
         Category::observe(CategoryObserver::class);
         Tag::observe(TagObserver::class);
+        Image::observe(ImageObserver::class);
     }
 }
