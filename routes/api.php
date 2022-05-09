@@ -39,5 +39,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::patch('/updateCategory/{category}', [CategoryController::class, 'update']);
     Route::delete('/deleteCategory/{category}', [CategoryController::class, 'destroy']);
 
+    Route::get('/fetchAllImages', [ImageController::class, 'fetchAllImages']);
     Route::post('/storeImage', [ImageController::class, 'store']);
+    Route::delete('/deleteImage/{image}', [ImageController::class, 'destroy']);
 });
