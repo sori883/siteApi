@@ -51,8 +51,9 @@ class ArticleController extends Controller
         $article = $request->makeArticle();
         $tags = $request->makeTags();
         $category = $request->makeCategory();
+        $image = $request->makeImage();
 
-        return new ArticleViewResource($action($article, $user, $tags, $category));
+        return new ArticleViewResource($action($article, $user, $tags, $category, $image));
     }
 
     /**
@@ -68,8 +69,9 @@ class ArticleController extends Controller
         $articleRequest = $request->makeArticle();
         $tags = $request->makeTags();
         $category = $request->makeCategory();
+        $image = $request->makeImage();
 
-        return new ArticleViewResource($action($article, $articleRequest, $tags, $category));
+        return new ArticleViewResource($action($article, $articleRequest, $tags, $category, $image));
     }
 
     /**
