@@ -8,6 +8,7 @@ use App\Http\Requests\Image\ImageStoreRequest;
 use App\UseCase\Image\StoreAction;
 use App\UseCase\Image\DeleteAction;
 use App\UseCase\Image\FetchAllImageAction;
+use App\UseCase\Image\FetchSelectorImage;
 use App\Http\Resources\Image\ImageCollection;
 
 class ImageController extends Controller
@@ -19,6 +20,19 @@ class ImageController extends Controller
      * @return ImageCollection
      */
     public function fetchAllImages(FetchAllImageAction $action): ImageCollection
+    {
+        $user = auth()->user();
+        $currentPage = request()->get('page', 1);
+        return new ImageCollection($action($user, $currentPage));
+    }
+
+    /**
+     * 全ての記事を取得する
+     *
+     * @param FetchAllArticleAction $action
+     * @return ImageCollection
+     */
+    public function fetchSelectorImage(FetchSelectorImage $action): ImageCollection
     {
         $user = auth()->user();
         $currentPage = request()->get('page', 1);
