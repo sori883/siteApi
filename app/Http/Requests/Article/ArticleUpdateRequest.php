@@ -70,6 +70,14 @@ class ArticleUpdateRequest extends ApiRequest
         null;
     }
 
+    public function makeImage()
+    {
+        return $this->validated()['image_id'] ?
+        Image::where('id', $this->validated()['image_id'])->first()
+        :
+        null;
+    }
+
     public function makeTags(): Collection
     {
         return collect(json_decode($this->validated()['tags']))

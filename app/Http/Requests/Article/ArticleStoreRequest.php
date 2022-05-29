@@ -5,6 +5,7 @@ namespace App\Http\Requests\Article;
 use App\Http\Requests\ApiRequest;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Image;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 
@@ -59,6 +60,14 @@ class ArticleStoreRequest extends ApiRequest
     {
         return $this->validated()['category_id'] ?
         Category::where('id', $this->validated()['category_id'])->first()
+        :
+        null;
+    }
+
+    public function makeImage()
+    {
+        return $this->validated()['image_id'] ?
+        Image::where('id', $this->validated()['image_id'])->first()
         :
         null;
     }
