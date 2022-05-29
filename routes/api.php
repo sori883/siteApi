@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/deleteCategory/{category}', [CategoryController::class, 'destroy']);
 
     Route::get('/fetchAllImages', [ImageController::class, 'fetchAllImages']);
+    Route::get('/fetchSelectorImage', [ImageController::class, 'fetchSelectorImage']);
     Route::post('/storeImage', [ImageController::class, 'store']);
     Route::delete('/deleteImage/{image}', [ImageController::class, 'destroy']);
 });
