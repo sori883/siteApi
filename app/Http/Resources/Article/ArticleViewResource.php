@@ -5,6 +5,7 @@ namespace App\Http\Resources\Article;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Category\CategoryListResource;
 use App\Http\Resources\Tag\TagResource;
+use App\Http\Resources\Image\ImageViewResource;
 
 class ArticleViewResource extends JsonResource
 {
@@ -22,7 +23,7 @@ class ArticleViewResource extends JsonResource
             'entry' => $this->resource->entry,
             'permalink' => $this->resource->permalink,
             'publish_at' => $this->resource->publish_at,
-            'image_id' => null,
+            'image' => ImageViewResource::make($this->resource->image),
             'category' => CategoryListResource::make($this->resource->category),
             'tags' => TagResource::collection($this->resource->tags),
         ];

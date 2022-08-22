@@ -78,12 +78,14 @@ class ArticleUpdateRequest extends ApiRequest
         null;
     }
 
-    public function makeTags(): Collection
+    public function makeTags()
     {
-        return collect(json_decode($this->validated()['tags']))
+        $tag =  collect(json_decode($this->validated()['tags']))
             ->slice(0, 5) // タグは5個までにするため
             ->map(function ($requestTag) {
                 return $requestTag->text;
             });
+
+        return $tag->first() ? $tag : null;
     }
 }
