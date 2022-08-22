@@ -16,7 +16,7 @@ class StoreAction
     public function __invoke(
         Article $article,
         User $user,
-        Collection $tags,
+        ?Collection $tags,
         ?Category $category,
         ?Image $image
     ): Article {
@@ -29,10 +29,12 @@ class StoreAction
             $article->save();
 
             // タグ登録
-            $tags->each(function ($tagName) use ($article) {
-                $tag = Tag::firstOrCreate(['text' => $tagName]);
-                $article->tags()->attach($tag);
-            });
+            if ($tags) {
+                $tags->each(function ($tagName) use ($article) {
+                    $tag = Tag::firstOrCreate(['text' => $tagName]);
+                    $article->tags()->attach($tag);
+                });
+            }
 
             DB::commit();
 

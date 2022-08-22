@@ -14,7 +14,7 @@ class UpdateAction
     public function __invoke(
         Article $article,
         array $articleRequest,
-        Collection $tags,
+        ?Collection $tags,
         ?Category $category,
         ?Image $image
     ): Article {
@@ -27,11 +27,13 @@ class UpdateAction
             $article->save();
 
             // タグ登録
-            $article->tags()->detach();
-            $tags->each(function ($tagName) use ($article) {
-                $tag = Tag::firstOrCreate(['text' => $tagName]);
-                $article->tags()->attach($tag);
-            });
+            if ($tags) {
+                $article->tags()->detach();
+                $tags->each(function ($tagName) use ($article) {
+                    $tag = Tag::firstOrCreate(['text' => $tagName]);
+                    $article->tags()->attach($tag);
+                });
+            }
 
             DB::commit();
 
