@@ -15,8 +15,9 @@ class FetchAllArticleAction
         try {
             $articles = Cache::tags(['article', 'all'])
                 ->rememberForever('FetchAllArticleAction-' . $currentPage, function () use ($user) {
-                    return Article::select('id', 'title', 'permalink', 'publish_at')
-                    ->where('user_id', $user->id)
+                    return Article::select('articles.id', 'title', 'permalink', 'publish_at', 'slug')
+                    ->leftJoin('categories', 'articles.category_id', '=', 'categories.id')
+                    ->where('articles.user_id', $user->id)
                     ->paginate(15);
                 });
             return $articles;
