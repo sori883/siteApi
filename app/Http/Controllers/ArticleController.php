@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use App\Http\Requests\Article\ArticleStoreRequest;
 use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\UseCase\Article\FetchAllArticleAction;
+use App\UseCase\Article\FetchIndexArticleAction;
+use App\UseCase\Article\FetchCategoryArticleAction;
 use App\UseCase\Article\StoreAction;
 use App\UseCase\Article\UpdateAction;
 use App\UseCase\Article\DeleteAction;
 use App\UseCase\Article\VisibleAction;
 use App\Http\Resources\Article\ArticleCollection;
 use App\Http\Resources\Article\ArticleViewResource;
+use App\Http\Resources\Article\ArticleIndexCollection;
+use App\Http\Resources\Article\ArticleCategoryList;
 
 class ArticleController extends Controller
 {
@@ -26,6 +31,29 @@ class ArticleController extends Controller
         $user = auth()->user();
         $currentPage = request()->get('page', 1);
         return new ArticleCollection($action($user, $currentPage));
+    }
+
+    /**
+    * TOPに表示する記事一覧
+    *
+    * @param FetchAllArticleAction $action
+    * @return ArticleCollection
+    */
+    public function fetchIndexArticles(FetchIndexArticleAction $action): ArticleIndexCollection
+    {
+        return new ArticleIndexCollection($action());
+    }
+
+    /**
+    *  カテゴリーに紐づく記事を取得する
+    *
+    * @param FetchAllArticleAction $action
+    * @return ArticleCollection
+    */
+    public function fetchCategoryArticles(FetchCategoryArticleAction $action, string $slug): ArticleCategoryList
+    {
+        $requestCategory = Category::where('slug', $slug)->first();
+        return new ArticleCategoryList($action($requestCategory));
     }
 
     /**
