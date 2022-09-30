@@ -13,7 +13,7 @@ class FetchSelectorCategories
     {
         try {
             $categories = Cache::tags(['category', 'selector'])->rememberForever('CategorySelector', function () {
-                return Category::select('id', 'name')->get();
+                return Category::select('id', 'name', 'slug')->get();
             });
             return $categories;
         } catch (ExclusiveLockException $e) {

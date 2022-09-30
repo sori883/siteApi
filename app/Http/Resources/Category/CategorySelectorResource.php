@@ -17,6 +17,7 @@ class CategorySelectorResource extends JsonResource
         return [
             'value' => $this->resource->id,
             'label' => $this->resource->name,
+            'slug' => $this->resource->slug,
         ];
     }
 }
