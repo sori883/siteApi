@@ -10,7 +10,9 @@ use App\UseCase\Category\UpdateAction;
 use App\UseCase\Category\DeleteAction;
 use App\UseCase\Category\FetchAllCategoryAction;
 use App\UseCase\Category\FetchSelectorCategories;
+use App\UseCase\Category\FetchIndexCategoryAction;
 use App\Http\Resources\Category\CategoryCollection;
+use App\Http\Resources\Category\CategoryIndexCollection;
 use App\Http\Resources\Category\CategorySelector;
 use App\Http\Resources\Category\CategoryListResource;
 
@@ -26,6 +28,17 @@ class CategoryController extends Controller
     {
         $currentPage = request()->get('page', 1);
         return new CategoryCollection($action($currentPage));
+    }
+
+    /**
+     * Indexに表示するカテゴリを取得する
+     *
+     * @param FetchIndexCategoryAction $action
+     * @return CategoryCollection
+     */
+    public function fetchIndexCategories(FetchIndexCategoryAction $action): CategoryIndexCollection
+    {
+        return new CategoryIndexCollection($action());
     }
 
     /**
