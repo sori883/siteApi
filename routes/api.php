@@ -18,6 +18,10 @@ use App\Http\Controllers\ImageController;
 |
 */
 
+Route::get('/fetchIndexArticles', [ArticleController::class, 'fetchIndexArticles']);
+Route::get('/fetchIndexCategories', [CategoryController::class, 'fetchIndexCategories']);
+Route::get('/fetchCategoryArticles/{slug}', [ArticleController::class, 'fetchCategoryArticles']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/me', MeController::class);
 
