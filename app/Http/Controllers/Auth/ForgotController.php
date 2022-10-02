@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\ForgotRequest;
+use App\Http\Requests\Auth\ForgotRequest;
 use App\Traits\Auth\AuthenticationTrait;
 use App\Models\PasswordReset;
+use App\Mail\PasswordResetMail;
+use Illuminate\Support\Facades\Mail;
 
 class ForgotController extends Controller
 {
@@ -22,8 +24,6 @@ class ForgotController extends Controller
      */
     public function forgot(ForgotRequest $request)
     {
-        $this->alreadyLogin();
-
         $token = $this->createToken();
 
         $passwordReset = $this->setPasswordReset($request, $token);
@@ -60,7 +60,7 @@ class ForgotController extends Controller
     private function sendPasswordResetMail(PasswordReset $passwordReset)
     {
         Mail::to($passwordReset->email)
-            ->send(new PasswordResetMail($passwordReset->token));
-            // ->queue(new PasswordResetMail($passwordReset->token));
+            //->send(new PasswordResetMail($passwordReset->token));
+            ->queue(new PasswordResetMail($passwordReset->token));
     }
 }

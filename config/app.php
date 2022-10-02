@@ -54,6 +54,9 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    // front url
+    'front_url' => env('FRONT_URL', 'http://localhost:3000'),
+
     'asset_url' => env('ASSET_URL', null),
 
     /*
@@ -67,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Tokyo',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ja',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +96,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'ja',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +109,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => env('APP_FAKER_LOCALE', 'ja_JP'),
 
     /*
     |--------------------------------------------------------------------------

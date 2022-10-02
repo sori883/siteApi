@@ -9,21 +9,21 @@ class PasswordReset extends Model
 {
     use HasFactory;
 
-       protected $primaryKey = 'email';
-       protected $keyType = 'string';
-       public $incrementing = false;
+    protected $primaryKey = 'email';
+    protected $keyType = 'string';
+    public $incrementing = false;
 
-       protected $fillable = [
-           'email',
-           'token',
-       ];
+    protected $fillable = [
+        'email',
+        'token',
+    ];
 
-       public $timestamps = false;
-       public static function boot()
-       {
-           parent::boot();
-           static::creating(function ($model) {
-               $model->created_at = $model->freshTimestamp();
-           });
-       }
+    public $timestamps = false;
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->created_at = $model->freshTimestamp();
+        });
+    }
 }

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Image;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class ResetRequest extends FormRequest
+class ImageStoreRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +25,7 @@ class ResetRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required|confirmed',
-            'token' => 'required|string',
+            'images.*' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
         ];
     }
 }

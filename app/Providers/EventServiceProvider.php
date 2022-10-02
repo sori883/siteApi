@@ -6,6 +6,14 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Observers\ArticleObserver;
+use App\Models\Article;
+use App\Observers\CategoryObserver;
+use App\Models\Category;
+use App\Observers\TagObserver;
+use App\Models\Tag;
+use App\Models\Image;
+use App\Observers\ImageObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,6 +35,10 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // キャッシュ削除用のObserver登録
+        Article::observe(ArticleObserver::class);
+        Category::observe(CategoryObserver::class);
+        Tag::observe(TagObserver::class);
+        Image::observe(ImageObserver::class);
     }
 }

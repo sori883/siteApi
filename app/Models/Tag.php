@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tag extends Model
 {
@@ -17,11 +18,11 @@ class Tag extends Model
     ];
 
     protected $fillable = [
-        'name',
+        'text',
     ];
 
     public function articles(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Article')->withTimestamps();
+        return $this->belongsToMany(Article::class)->withTimestamps();
     }
 }
