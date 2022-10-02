@@ -68,6 +68,17 @@ class ArticleController extends Controller
     }
 
     /**
+     * 特定の記事を取得する
+     *
+     * @param Article $article
+     * @return ArticleViewResource
+     */
+    public function fetchArticlesFromPermalink(string $permalink): ArticleViewResource
+    {
+        return new ArticleViewResource(Article::where('permalink', $permalink)->first());
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
